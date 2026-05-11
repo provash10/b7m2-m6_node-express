@@ -1,0 +1,14 @@
+1. create folder
+2. cmd- vs code open
+3. terminal- initialis- npm init -y  -->package.json
+4. ts run- npm i -D typescript           (dev-Development and D-Production)
+5. ts config - npx tsc --init
+6. node type install- npm install -D @types/node
+
+7. google--> npm tsx --> https://www.npmjs.com/package/tsx
+install- npm i tsx
+
+ "scripts": {
+    "dev":"tsx watch ./src/server.ts", //package.json
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
