@@ -12,3 +12,10 @@ install- npm i tsx
     "dev":"tsx watch ./src/server.ts", //package.json
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
+
+  important: 
+  server run by terminal : tsx watch ./src/server.ts
+
+only--->
+  npm run dev 
