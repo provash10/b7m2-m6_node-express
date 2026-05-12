@@ -12,6 +12,6 @@ export const readProduct = ()=>{
     // console.log(products.toString())  // ok terminal data showing
     // console.log(products);
     // return products;
-    console.log(JSON.parse(products))
+    // console.log(JSON.parse(products))
     return JSON.parse(products);
 }

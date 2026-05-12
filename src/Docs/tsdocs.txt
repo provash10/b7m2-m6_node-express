@@ -10,6 +10,7 @@ install- npm i tsx
 
  "scripts": {
     "dev":"tsx watch ./src/server.ts", //package.json
+    "dev" : "nodemon --watch src --ext ts --exec tsx src/server.ts" //ok
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 
