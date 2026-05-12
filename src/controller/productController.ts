@@ -38,6 +38,7 @@ export const productController = async(
         })); 
     }
     
+        //GET Method
         else if (method === "GET" && id !== null) {
         const products = readProduct();
         const product = products.find((p: IProduct) => p.id === id);
@@ -53,6 +54,8 @@ export const productController = async(
             data: product }));
         return;
     }
+
+      //POST Method
      else if (method==="POST" && url ==='/products'){
         // const body = "";
          const body = await parseBody(req);
@@ -78,6 +81,36 @@ export const productController = async(
         return;
      }
 
+     //PUT Method
+     else if(method ==="PUT" && id !==null){
+        const body = await parseBody(req);
+        const products = readProduct();
+
+        const index = products.findIndex((p:IProduct)=>p.id===id);
+        // console.log(index);
+        if(index<0){
+            res.writeHead(404, { "content-type": "application/json" });
+        res.end(JSON.stringify({ 
+            message: "Product not found", 
+            data: null,
+        }));
+        return;
+        }
+        // console.log( products[index]);
+        products[index] = {id: products[index].id, ...body};
+
+        insertProduct(products);
+        
+        res.writeHead(200, { "content-type": "application/json" });
+        res.end(JSON.stringify({ 
+            message: "Product Updated Successfully", 
+            data: products[index],
+        }));
+        return;
+        }
+
+     
+
     // Fallback for unknown routes //ai 
     else {
         res.writeHead(404, { "content-type": "application/json" });
@@ -85,4 +118,3 @@ export const productController = async(
     }
 };
 
-//9.40
