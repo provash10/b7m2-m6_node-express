@@ -1,8 +1,13 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { readProduct } from "../service/product.service";
 import type { IProduct } from "../types/product.type";
+import { parseBody } from "../utility/parseBody";
 
-export const productController = async(req:IncomingMessage, res:ServerResponse)=>{
+export const productController = async(
+    req:IncomingMessage, 
+    res:ServerResponse)=>{
+
+        // console.log("Request",req);  //for parseBody.ts
 
     const url = req.url
     const method = req.method
@@ -41,11 +46,28 @@ export const productController = async(req:IncomingMessage, res:ServerResponse)=
             res.end(JSON.stringify({ message: "Product not found", data: null }));
             return;
         }
+
         res.writeHead(200, { "content-type": "application/json" });
-        res.end(JSON.stringify({ message: "Product retrieved Successfully", data: product }));
+        res.end(JSON.stringify({ 
+            message: "Product retrieved Successfully", 
+            data: product }));
         return;
     }
-    // Fallback for unknown routes
+     else if (method==="POST" && url ==='/products'){
+        // const body = "";
+         const body = await parseBody(req);
+         console.log("Body", body);
+
+
+        res.writeHead(200, { "content-type": "application/json" });
+        res.end(JSON.stringify({ 
+            message: "Product created Successfully", 
+            // data: product 
+        }));
+        return;
+     }
+
+    // Fallback for unknown routes //ai 
     else {
         res.writeHead(404, { "content-type": "application/json" });
         res.end(JSON.stringify({ message: "Route not found" }));
