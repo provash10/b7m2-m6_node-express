@@ -15,3 +15,11 @@ export const readProduct = ()=>{
     // console.log(JSON.parse(products))
     return JSON.parse(products);
 }
+
+
+export const insertProduct=(payload : any)=>{
+    // console.log(payload);
+    console.log(JSON.stringify(payload));
+    fs.writeFileSync(filepath, JSON.stringify(payload));
+    
+};

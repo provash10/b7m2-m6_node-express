@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { readProduct } from "../service/product.service";
+import { insertProduct, readProduct } from "../service/product.service";
 import type { IProduct } from "../types/product.type";
 import { parseBody } from "../utility/parseBody";
 
@@ -56,13 +56,24 @@ export const productController = async(
      else if (method==="POST" && url ==='/products'){
         // const body = "";
          const body = await parseBody(req);
-         console.log("Body", body);
+        //  console.log("Body", body);
+
+        const products = readProduct(); // read kora lagbe
+        const newProduct ={
+            id: Date.now(),
+            ...body,
+        }
+        // console.log(newProduct);
+
+        products.push(newProduct) // [{},{},{},{new}]
+        // console.log(products);
+        insertProduct(products);
 
 
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({ 
             message: "Product created Successfully", 
-            // data: product 
+            data: products,
         }));
         return;
      }
@@ -73,3 +84,5 @@ export const productController = async(
         res.end(JSON.stringify({ message: "Route not found" }));
     }
 };
+
+//9.40
